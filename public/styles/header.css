@@ -1,0 +1,31 @@
+.nav-header{
+    width: calc(100vw - 14px);
+    height: 70px;
+    background-color: #1E4D5F;
+    padding-top: 0px;
+    color: #EAEDE7;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-template-areas: "userName title enlaces";
+}
+
+.nav-header h1{grid-area: title; align-self: center; justify-self: center;}
+.nav-header aside {
+    grid-area: enlaces;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+.nav-header aside a{
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+}
+
+.username{
+    grid-area: userName; 
+    align-self: center; 
+    justify-self: center;
+}

@@ -1,0 +1,45 @@
+/* Paleta de colores
+Principal - #1E4D5F
+Secundario - #216776
+Tercero - #5493A5
+Remarkes - #F4D1AD
+letras y detalles blancos - #EAEDE7
+*/
+
+:root {
+    --altura-modal: calc(100vh - 250px); 
+    --ancho-modal: calc(100vw - 14px); 
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+ /* Este funciona para cuando quieres que el scroll no se vea */
+/* html, body {
+    width: 100%!important;
+    overflow-x: hidden;
+} */
+
+.contenedor-principal{
+    background-color: rgb(93,93,93);
+    width: 100%;
+    height: var(--altura-modal);
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.contenedor-general{ /*Se esta usando este en el contenido*/
+    background-color: #216776;
+    width: var(--ancho-modal);
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    overflow-y: hidden;
+
+}
+
+ion-icon{
+    font-size: 18px;
+}

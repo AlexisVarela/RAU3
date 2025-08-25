@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="/styles/home.css">
+<div class="contenedor-home">
+    <aside class="productos">
+        <h2>Productos</h2>
+        <ul>
+            <% if (productos && productos.length > 0) { %>
+              <% productos.forEach(prod => { %>
+                <li class="item">
+                  <h4><%= prod.nombre %></h4>
+                  <p class="precio">Precio: $<%= prod.precio %></p>
+                  <p class="stock">Stock: 
+                    <% if (prod.stock > 0) { %>
+                      <%= prod.stock %>
+                    <% } else { %>
+                      No disponible
+                    <% } %>
+                  </p>
+
+                  <% if (Usuario) { %>
+                    <% if (prod.stock > 0) { %>
+                      <!-- Formulario para agregar al carrito si hay sesión -->
+                      <form action="/carrito/add" method="POST" style="display:inline;">
+                          <input type="hidden" name="productoId" value="<%= prod._id %>">
+                          <input type="hidden" name="cantidad" value="1">
+                          <button type="submit">Agregar al Carrito</button>
+                      </form>
+                    <% } else { %>
+                      <button style="background-color:#eaac3088 ;">Agregar al Carrito</button>
+                    <% } %>
+                  <% } else { %>
+                    <!-- Botón para redirigir al login si no hay sesión -->
+                    <a href="/user/login">
+                        <button>Agregar al Carrito</button>
+                    </a>
+                  <% } %>
+                </li>
+              <% }) %>
+            <% } else { %>
+              <p>No hay productos disponibles.</p>
+            <% } %>
+        </ul>
+    </aside>
+
+    <nav class="carrito">
+      <div class="headerC">
+        <h2>Carrito</h2>
+        <% if (Usuario) { %>
+          <button id="btnCarrito">Ver carrito</button>
+        <% } else { %>
+          <a href="/user/login"><button>Ver carrito</button></a>
+        <% } %>
+      </div>
+
+      <div class="ListaC" id="listaCarrito" style="display:none;">
+        <% if (carrito && carrito.productos.length > 0) { %>
+          <ul>
+            <% carrito.productos.forEach(item => { %>
+              <li>
+                  <span><%= item.producto.nombre %></span>
+                  <form action="/carrito/update/<%= item.producto._id %>" method="POST" class="cantidad">
+                    <input class="cantidad2" type="number" name="cantidad" value="<%= item.cantidad %>" min="1" style="width:50px;">
+                    <button type="submit"><ion-icon name="create-outline"></ion-icon></button>
+                  </form>
+                  <form action="/carrito/delete/<%= item.producto._id %>" method="POST" style="display:inline;">
+                    <button type="submit"><ion-icon name="trash-outline"></ion-icon></button>
+                  </form>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>El carrito está vacío</p>
+        <% } %>
+
+        
+      </div>
+      
+      <div class="footer" id="sumas" style="display:none;">
+        <p>Total a pagar: $<span id="totalCarrito"><%= typeof total !== 'undefined' ? total : 0 %></span></p>
+
+        <form action="/carrito/comprar" method="POST">
+          <button type="submit">Comprar</button>
+        </form>
+
+        <form action="/carrito/vaciar" method="POST">
+          <button type="submit">Vaciar</button>
+        </form>
+      </div>
+    </nav>
+
+    <script>
+      const tieneSesion = <%= Usuario ? 'true' : 'false' %>;
+      if (tieneSesion) {
+        document.getElementById('btnCarrito').addEventListener('click', () => {
+          const lista = document.getElementById('listaCarrito');
+          lista.style.display = lista.style.display === 'none' ? 'block' : 'none';
+        });
+        document.getElementById('btnCarrito').addEventListener('click', () => {
+          const sumas = document.getElementById('sumas');
+          sumas.style.display = sumas.style.display === 'none' ? 'flex' : 'none';
+        });
+      }
+    </script>
+</div>

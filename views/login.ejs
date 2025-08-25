@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/styles/login.css">
+<form class="form" action="/user/login" method="post">
+    <h2>Formulario Login</h2>
+    <input type="email" id="email" name="email" placeholder="Correo Electronico" required>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <button class="button" type="submit">Login</button>
+    <% if (typeof error !== 'undefined') { %>
+        <div class="mensaje-error">
+            <p><%= error %></p>
+        </div>
+    <% } %>
+    <div class="irLogin">
+        <a href="/user/register"><p>¿No tienes Cuenta? Registrate Aquí</p></a>
+        <a href="/"><p>Volver al Inicio</p></a>
+    </div>
+</form>

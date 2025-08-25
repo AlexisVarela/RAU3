@@ -1,0 +1,248 @@
+/*Barra de scroll lateral*/
+.contenedor-home aside ul::-webkit-scrollbar {
+    width: 3px; /* ancho del scroll */
+}
+.contenedor-home aside ul::-webkit-scrollbar-track {
+    background: transparent; /* fondo del track */
+}
+.contenedor-home aside ul::-webkit-scrollbar-thumb {
+    background-color: #d6d6d68d; /* color del scroll */
+    border-radius: 4px; /* bordes redondeados */
+    border: 2px solid transparent; /* espacio alrededor */
+}
+.contenedor-home aside ul::-webkit-scrollbar-thumb:hover {
+    background-color: #a6a6a6; /* color al pasar el mouse */
+}
+
+/*Aqui comienza lo chido*/
+
+.contenedor-home{
+    background-color: #216776;
+    width: 100vw;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "aside nav";
+    padding: 30px;
+    gap: 2rem;
+    text-align: center;
+    color:  #EAEDE7;
+}
+
+/*Productos*/
+
+.contenedor-home aside {
+    grid-area: aside;
+    /* width: 300px; */
+    height: 520px; 
+    background-color: #5493A5;
+    border-radius: 1rem;
+    padding: 10px;
+}
+
+.contenedor-home aside ul{
+    padding-top: 15px;
+    width: 100%;
+    height: 100%;
+    max-height: 450px;
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    overflow-y: auto; /* Permite el scroll vertical */
+    scroll-behavior: smooth; /* Opcional: para scroll suave */
+}
+
+.item{ /*tarjeta producto*/
+    list-style: none;justify-self: center; align-self: center;
+    background-color:  #1E4D5F;
+    width: 390px;
+    height: 85px;
+    border-radius: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr ;
+    grid-template-areas: "title precio btnProducto"
+                         "title stock btnProducto";
+    gap: 5px;
+    padding: 10px;
+}
+
+.item h4 {grid-area: title; justify-self: center; align-self: center;}
+.item .precio {grid-area: precio;justify-self: center; align-self: center;}
+.item .stock  {grid-area: stock;justify-self: center; align-self: center;}
+.item form  {grid-area: btnProducto;justify-self: center; align-self: center;}
+/* .item button  {grid-area: btnProducto;justify-self: center; align-self: center;} */
+
+button{
+    grid-area: btnProducto;
+    justify-self: center;
+    align-self: center;
+    width: 120px;
+    height: 35px;
+    border-radius: 1rem;
+    background-color:#eaac30;
+    transition: ease 1s;
+}
+ button:hover{
+    transition: ease 1.5s;
+    background-color: #f9c65fef;
+ }
+
+
+/*Carrito*/
+
+.contenedor-home nav {
+    grid-area: nav;
+    /* width: 300px; */
+    height: 520px; 
+    background-color: #5493A5;
+    border-radius: 1rem;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 3fr 0.5fr;
+    grid-template-areas: "header"
+                         "productos"
+                         "sumas";
+}
+.carrito .headerC{
+    grid-area: header;
+    width: 100%;
+    height: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "h4 btnC";
+}
+.headerC h2{
+    grid-area: h4;
+    align-self: center; 
+    justify-self: center;
+}
+.headerC button{
+    grid-area: btnC;
+    align-self: center; 
+    justify-self: center;
+}
+
+.contenedor-home nav .ListaC {
+    grid-area: productos;
+    width: 100%;
+    height: 100%;
+    gap: 15px;
+}
+
+nav .footer {
+    grid-area: sumas;
+    height: 100%;
+    width: 100%;
+    /* background-color: #eaac30; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+nav .footer button{
+    width: 100px;
+    height: 30px;
+}
+
+.ListaC ul {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    padding-top: 10px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: start;
+    align-content: start;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+/* Cuando hay 4 o más elementos li */
+.ListaC ul:has(li:nth-child(4)) {
+    grid-template-rows: auto; /* Ya lo tienes, pero se refuerza */
+}
+
+/* Cuando hay menos de 4 elementos li */
+.ListaC ul:not(:has(li:nth-child(4))) {
+    grid-auto-rows: 100px; /* Altura fija para menos de 4 elementos */
+}
+
+/*Productos de carrito*/
+.ListaC ul li{ /*tarjeta producto*/
+    list-style: none;
+    /* justify-self: center; 
+    align-self: center; */
+    background-color:  #1E4D5F;
+    width: 320px;
+    height: 65px;
+    border-radius: 1rem;
+    padding-top: 10px;
+    /* padding-bottom: 10px; */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr ;
+    grid-template-areas: "title title"
+                         "cantidad btnCarrito";
+    gap: 5px;
+    padding: 10px;
+}
+
+.ListaC ul li span{
+    grid-area: title;
+    justify-self: center;
+    align-self: center;
+}
+
+.ListaC ul li .cantidad{
+    grid-area: cantidad;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+}
+
+/* .ListaC ul li form button {
+    margin-top: 10px;
+} */
+
+.ListaC ul li form input{
+    /* width: 200px; */
+    height: 28px;
+    border-radius: 8px;
+    padding-left: 1rem;
+    /* margin-bottom: 12px; */
+}
+
+.ListaC ul li button{
+    grid-area: btnCarrito;
+    justify-self: center;
+    align-self: center;
+    width: 80px;
+    height: 32px;
+}
+
+
+/*Barra de scroll lateral*/
+.ListaC ul::-webkit-scrollbar {
+    width: 3px; /* ancho del scroll */
+}
+.ListaC ul::-webkit-scrollbar-track {
+    background: transparent; /* fondo del track */
+}
+.ListaC ul::-webkit-scrollbar-thumb {
+    background-color: #d6d6d68d; /* color del scroll */
+    border-radius: 4px; 
+    border: 2px solid transparent; /* espacio alrededor */
+}
+.ListaC ul::-webkit-scrollbar-thumb:hover {
+    background-color: #a6a6a6; /* color al pasar el mouse */
+}
+
+

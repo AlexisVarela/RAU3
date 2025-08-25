@@ -1,0 +1,75 @@
+.form{
+    /* margin-bottom: auto; */
+    height: 460px;
+    width: 27%;
+    color: white;
+    background-color: #1E4D5F;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 2px 2px #2b2b2c99;
+    padding: 0.5rem;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr ;
+    grid-template-rows: repeat(5, 60px) 70px;
+    grid-template-areas:"h2" 
+                        "input1" 
+                        "input2" 
+                        "input3"
+                        "btn"
+                        "irRegistro";
+}
+
+h2{ grid-area: h2; text-align: center; margin-top: 10px;} 
+#username{ grid-area:input1;} 
+#email{ grid-area:input2;} 
+#password{ grid-area:input3 ;}
+
+.button{ 
+    grid-area: btn;
+    width: 80%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #5493A5;
+    color: white; 
+    align-self: end;
+    transition: .3s ease-in;
+}
+
+.button:hover{
+    padding: 5px;
+    background-color: #3d7686c3;
+    transition: .3s ease;
+}
+
+
+.irRegistro{
+    margin-top: 5px;
+    grid-area: irRegistro;
+    justify-self: center;
+    text-align: center;
+}
+
+.irRegistro a {
+    text-decoration: none;
+    font-size: 18px; color:
+    white;
+    line-height: 1.8;
+}
+
+#username, #email, #password, .button{
+    justify-self: center;
+}
+
+input{
+    padding-left: 0.5rem;
+    width: 80%;
+    height:50px;
+    border-radius: 8px;
+}
+
+@media (max-width : 711px) {
+    .form{
+        width: 85%;
+    }
+}

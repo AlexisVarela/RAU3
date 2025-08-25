@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/styles/header.css">
+<header class="nav-header">
+    <h1>Sección de Compras</h1>
+    <aside class="enlaces">
+        <a href="/user/login">LogIn</a>
+        <a href="/user/register">Registrate</a>
+    </aside>
+    <div class="username"> 
+      <% if (typeof Usuario !== 'undefined' && Usuario) { %>
+        <h3>Bienvenido  <%= Usuario.username %></h3>
+      <% } else { %>
+        <h3>Bienvenido  Estas en el home pa</h3>
+      <% } %>
+    </div>
+</header>

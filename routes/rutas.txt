@@ -1,0 +1,27 @@
+rutas
+
+Endpoints principales:
+
+POST /api/auth/register - Registrar usuario
+
+POST /api/auth/login - Iniciar sesión
+
+GET /api/auth/me - Obtener usuario actual (requiere JWT)
+
+GET /api/carrito - Obtener carrito (requiere JWT)
+
+POST /api/carrito/add - Agregar producto (requiere JWT)
+
+PUT /api/carrito/update/:productId - Actualizar cantidad (requiere JWT)
+
+DELETE /api/carrito/remove/:productId - Eliminar producto (requiere JWT)
+
+DELETE /api/carrito/clear - Vaciar carrito (requiere JWT)
+
+Para OAuth con Google (opcional):
+
+Configura las credenciales de Google en el .env
+
+GET /auth/google - Iniciar autenticación con Google
+
+GET /auth/google/callback - Callback de Google (maneja el redireccionamiento)

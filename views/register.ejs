@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/styles/register.css">
+<form class="form" action="/user/register" method="post">
+    <h2>Formulario Registro</h2>
+    <input type="text" id="username" name="username" placeholder="Nombre" required>
+    <input type="email" id="email" name="email" placeholder="Correo Electronico" required>
+    <input type="password" id="password" name="password" placeholder="Password" required>
+    <button class="button" type="submit">Registrarse</button>
+    <% if (typeof error !== 'undefined') { %>
+        <div class="mensaje-error">
+            <p><%= error %></p>
+        </div>
+    <% } %>
+    <div class="irRegistro">
+        <a href="/user/login"><p>¿Ya tienes Cuenta? Inicia Sesión Aquí</p></a>
+        <a href="/"><p>Volver al Inicio</p></a>
+    </div>
+</form>
