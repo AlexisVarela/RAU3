@@ -2,54 +2,55 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const methodOverride = require('method-override');
+const passport = require('passport'); // Passport
+require('./config/passport2'); // Estrategias Passport
 
-// Cargar las variables de entorno
+// Variables de entorno
 const dotenv = require('dotenv');
 dotenv.config(); 
-
-// variables de entorno
 const PORT = process.env.PORT || 3000;
 const secret_Session = process.env.secret_Session;
 
-
-// Permisos para realizar peticiones put y delete
+// Middleware: Permitir PUT y DELETE
 app.use(methodOverride('_method'));
 
-// renderizado de vistas
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname,'views'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static('public'));
-
-// Procesar datos de los formularios 
-app.use(express.urlencoded({extended: true}));
+// Middleware: procesar formularios
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Vistas
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 app.set('layout', 'layout'); 
 
+// Archivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Mongo
-const {conectarMongo} = require('./controller/config/conectarMongo');
+const { conectarMongo } = require('./config/conectarMongo');
 conectarMongo();
 
-// implementación del session
+// Sesión: **Primero la sesión**
 const sesion = require('express-session');
-app.use(express.urlencoded({extended:true}));
 app.use(sesion({
-    secret: secret_Session,
-    resave: false,
-    saveUninitialized:false
+  secret: secret_Session,
+  resave: false,
+  saveUninitialized: false
 }));
 
-// es una ruta que actua como middleware que asigna un valor global
-// a la variable usuario de la sesion 
+// Passport: **Después de la sesión**
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Variable global para vistas
 app.use((req, res, next) => {
-  res.locals.Usuario = req.session.usuario || null; // variable global
+  res.locals.Usuario = req.session.usuario || null;
   next();
 });
 
-// rutas
+// Rutas
 const rutasPrincipal = require('./routes/rutasPrincipal');
 app.get('/', rutasPrincipal);
 
@@ -65,10 +66,10 @@ app.use('/user', userRoutes);
 const carritoRoutes = require('./routes/carritoRoutes');
 app.use('/carrito', carritoRoutes);
 
+const oauth2 = require('./routes/oauth2');
+app.use('/auth', oauth2);
 
-
-
-// Configuración del puerto
+// Puerto
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
