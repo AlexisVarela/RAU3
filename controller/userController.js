@@ -7,17 +7,17 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Mostrar formulario login
-exports.getLogin = (req, res) => {
+const getLogin = (req, res) => {
   res.render('login'); // tu vista login.ejs
 };
 
 // Mostrar formulario registro
-exports.getRegister = (req, res) => {
+const getRegister = (req, res) => {
   res.render('register'); // tu vista register.ejs
 };
 
 // Procesar login
-exports.postLogin = async (req, res) => {
+const postLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const usuario = await Usuario.findOne({ email });
@@ -36,6 +36,8 @@ exports.postLogin = async (req, res) => {
         username: usuario.nombre
       };
 
+      console.log('Se ha iniciado sesión con el token: ' + token);
+
     res.redirect('/'); // redirigir a inicio o carrito
   } catch (err) {
     console.error(err);
@@ -44,7 +46,7 @@ exports.postLogin = async (req, res) => {
 };
 
 // Procesar registro
-exports.postRegister = async (req, res) => {
+const postRegister = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const usuarioExistente = await Usuario.findOne({ email });
@@ -60,3 +62,6 @@ exports.postRegister = async (req, res) => {
     res.render('register', { error: 'Error en el servidor' });
   }
 };
+
+//
+module.exports={getLogin, getRegister, postLogin, postRegister};

@@ -58,21 +58,23 @@
     list-style: none;justify-self: center; align-self: center;
     background-color:  #1E4D5F;
     width: 390px;
-    height: 85px;
+    height: 150px;
     border-radius: 1rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr 1fr ;
-    grid-template-areas: "title precio btnProducto"
-                         "title stock btnProducto";
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: "img title title"
+                         "img precio btnProducto"
+                         "img stock btnProducto";
     gap: 5px;
     padding: 10px;
 }
 
+.item .imgProducto {grid-area: img; width: 90%; height: 90%;align-self: center;}
 .item h4 {grid-area: title; justify-self: center; align-self: center;}
 .item .precio {grid-area: precio;justify-self: center; align-self: center;}
 .item .stock  {grid-area: stock;justify-self: center; align-self: center;}
-.item form  {grid-area: btnProducto;justify-self: center; align-self: center;}
+.item .botoncito  {grid-area: btnProducto;justify-self: center; align-self: self-end; margin-bottom: 12px;}
 /* .item button  {grid-area: btnProducto;justify-self: center; align-self: center;} */
 
 button{

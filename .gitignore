@@ -1,3 +1,4 @@
 # ignorando archivos personales.
 default1.txt
+rutas.txt
 .env

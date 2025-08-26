@@ -138,7 +138,7 @@ const comprarCarrito = async (req, res) => {
     carrito.productos = [];
     await carrito.save();
 
-    console.log("Total de la compra:", total);
+    console.log("Total de la compra: ", total);
 
     // Redirigir al home
     res.redirect('/');

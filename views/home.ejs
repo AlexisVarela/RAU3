@@ -6,6 +6,7 @@
             <% if (productos && productos.length > 0) { %>
               <% productos.forEach(prod => { %>
                 <li class="item">
+                  <img src="<%= prod.imagen %>" alt="<%= prod.nombre %>" class="imgProducto ">
                   <h4><%= prod.nombre %></h4>
                   <p class="precio">Precio: $<%= prod.precio %></p>
                   <p class="stock">Stock: 
@@ -19,18 +20,18 @@
                   <% if (Usuario) { %>
                     <% if (prod.stock > 0) { %>
                       <!-- Formulario para agregar al carrito si hay sesión -->
-                      <form action="/carrito/add" method="POST" style="display:inline;">
+                      <form action="/carrito/add" method="POST" style="display:inline;" class="botoncito">
                           <input type="hidden" name="productoId" value="<%= prod._id %>">
                           <input type="hidden" name="cantidad" value="1">
                           <button type="submit">Agregar al Carrito</button>
                       </form>
                     <% } else { %>
-                      <button style="background-color:#eaac3088 ;">Agregar al Carrito</button>
+                      <button style="background-color:#eaac3088 ;" class="botoncito">Agregar al Carrito</button>
                     <% } %>
                   <% } else { %>
                     <!-- Botón para redirigir al login si no hay sesión -->
-                    <a href="/user/login">
-                        <button>Agregar al Carrito</button>
+                    <a href="/user/login" class="botoncito">
+                        <button >Agregar al Carrito</button>
                     </a>
                   <% } %>
                 </li>
