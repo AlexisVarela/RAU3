@@ -2,6 +2,8 @@
 const Usuario = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Carrito = require('../models/CarritoModel');
+const Producto = require('../models/ProductoModel');
 
 const dotenv = require('dotenv');
 
@@ -66,4 +68,42 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = {hola, login, register} 
+const getCarritoYProductos = async (req, res) => {
+  try {
+    if (!req.usuario) {
+      return res.status(401).json({ msg: 'No autorizado' });
+    }
+    // Traer carrito
+    const carrito = await Carrito.findOne({ usuario: req.usuario.id })
+      .populate('productos.producto');
+    // Traer productos
+    const productos = await Producto.find();
+    // Calcular total
+    let total = 0;
+    if (carrito?.productos?.length > 0) {
+      total = carrito.productos.reduce((acc, item) => {
+        const precio = item.producto?.precio || 0;
+        const cantidad = item.cantidad || 0;
+        return acc + precio * cantidad;
+      }, 0);
+    }
+    // Renderizar todo junto
+    // res.render('home', { 
+    //   title: 'Home', 
+    //   productos,
+    //   carrito,
+    //   Usuario: req.usuario,
+    //   total
+    // });
+     res.json({ carrito });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error al obtener datos');
+  }
+};
+
+
+
+
+module.exports = {hola, login, register, getCarritoYProductos};

@@ -7,7 +7,6 @@ const getCarrito = async (req, res) => {
     const carrito = await Carrito.findOne({ usuario: req.session.usuario.id })
       .populate('productos.producto');
 
-
     let total = 0;
     if (carrito.productos?.length > 0) {
       total = carrito.productos.reduce((acc, item) => {
@@ -19,7 +18,7 @@ const getCarrito = async (req, res) => {
 
     res.render('home', { 
       title: 'Home', 
-      productos: [], // opcional, puedes pasar productos si quieres
+      productos: [],
       carrito,
       Usuario: req.session.usuario,
       total 
