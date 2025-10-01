@@ -15,4 +15,6 @@ COPY . .
 RUN mkdir -p test-results
 
 # Comando por defecto: correr Jest y guardar resultados en JSON
-CMD ["npm", "test", "--", "--json", "--outputFile=./test-results/results.json"]
+CMD ["npx", "jest", "--detectOpenHandles", "--json", "--outputFile=./test-results/results.json"]
+
+
