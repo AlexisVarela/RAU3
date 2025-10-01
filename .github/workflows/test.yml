@@ -16,6 +16,9 @@ jobs:
       - name: Build Docker image
         run: docker build -t carrito-tests .
 
+      - name: Prepare test results folder
+        run: mkdir -p test-results
+
       - name: Run container and execute tests
         run: docker run --rm -v ${{ github.workspace }}/test-results:/usr/src/app/test-results carrito-tests
 
