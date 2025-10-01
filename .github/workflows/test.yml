@@ -27,3 +27,18 @@ jobs:
         with:
           name: jest-results
           path: test-results/results.json
+
+      # 🔑 Login en Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 📦 Volver a construir pero con el nombre correcto
+      - name: Build Docker image with tag
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/rau3:latest .
+
+      # 🚀 Push a Docker Hub
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/rau3:latest
