@@ -23,7 +23,7 @@ jobs:
         run: docker run --rm -v ${{ github.workspace }}/test-results:/usr/src/app/test-results carrito-tests
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jest-results
           path: test-results/results.json
