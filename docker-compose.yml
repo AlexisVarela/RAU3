@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  app:
+    image: alexisvarela/rau3:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_CALLBACK_URL: ${GOOGLE_CALLBACK_URL}
+      MONGO_URI: ${MONGO_URI}
