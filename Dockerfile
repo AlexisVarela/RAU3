@@ -6,18 +6,13 @@ WORKDIR /usr/src/app
 
 # Copiar package.json e instalar dependencias
 COPY package*.json ./
-RUN npm install
+RUN npm install --production
 
 # Copiar el resto del proyecto
 COPY . .
 
-# Crear carpeta para resultados de pruebas
-RUN mkdir -p test-results
+# Puerto de la aplicación (ajústalo según tu app)
+EXPOSE 3000
 
-# Dar permisos de ejecución a binarios de node_modules
-RUN chmod +x node_modules/.bin/jest
-
-# Comando por defecto: correr Jest y guardar resultados en JSON
-CMD ["npx", "jest", "--detectOpenHandles", "--json", "--outputFile=./test-results/results.json"]
-
-
+# Comando por defecto: arrancar la app
+CMD ["npm", "start"]

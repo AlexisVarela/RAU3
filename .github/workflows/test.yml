@@ -1,9 +1,9 @@
-name: Correr Prueba con Docker
+name: CI/CD con Docker
 
 on: [push, pull_request]
 
 jobs:
-  test:
+  test-and-build:
     runs-on: ubuntu-latest
     
     steps:
@@ -13,8 +13,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
-        run: docker build -t carrito-tests .
+      # Construir y correr las pruebas
+      - name: Build Docker test image
+        run: docker build -f Dockerfile.test -t carrito-tests .
 
       - name: Prepare test results folder
         run: mkdir -p test-results
@@ -35,11 +36,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Volver a construir pero con el nombre correcto
-      - name: Build Docker image with tag
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/rau3:latest .
+      # Construir imagen de la app (producción)
+      - name: Build production Docker image
+        run: |
+          docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/rau3:latest \
+                       -t ${{ secrets.DOCKER_USERNAME }}/rau3:${{ github.sha }} .
 
-      # Push a Docker Hub
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/rau3:latest
-
+      # Subir imagen a Docker Hub
+      - name: Push production image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/rau3:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/rau3:${{ github.sha }}
