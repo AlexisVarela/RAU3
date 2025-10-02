@@ -21,7 +21,12 @@ jobs:
         run: mkdir -p test-results
 
       - name: Run container and execute tests
-        run: docker run --rm -v ${{ github.workspace }}/test-results:/usr/src/app/test-results carrito-tests
+        run: docker run --rm \
+              -v ${{ github.workspace }}/test-results:/usr/src/app/test-results \
+              -e GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} \
+              -e GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }} \
+              -e GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }} \
+              carrito-tests
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
