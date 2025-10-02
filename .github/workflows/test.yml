@@ -49,6 +49,7 @@ jobs:
           docker build -f Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/rau3:latest \
                        -t ${{ secrets.DOCKER_USERNAME }}/rau3:${{ github.sha }} .
 
+
       # Subir imagen a Docker Hub
       - name: Push production image
         run: |
