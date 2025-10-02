@@ -5,6 +5,8 @@ services:
     image: alexisvarela/rau3:latest
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
